@@ -1,0 +1,9 @@
+1. Introduction to One Stop Terminal Shop
+
+I am a student looking for a way to practice programming by making something. The best idea I could come up with is an application that can be ran in the terminal that will allow for users to select an application from a menu. I would also like to make it so that users can add other installed application on their own machines to the list allowing for an application that acts like a launcher for other applications.
+
+I also aim to make my own applications for the One Stop Terminal Shop as a starting point. I have decided to use the GNU Public License V3.0 as I am a fan of open source software and feel that by making this project open source it can only make it better.
+
+I plan to use the C programming language initially as I like it, but may change in the future if I think it will help.
+
+I plan to update the software often but student commitments may lead to long periods of time without a push to the master branch. This project is mainly for fun, feel free to make comments and add your own code if you want to.

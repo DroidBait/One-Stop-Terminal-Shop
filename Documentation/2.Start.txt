@@ -1,0 +1,2 @@
+What am I currently working on?
+I am currently working on a menu system for the applicaton. I plan to use ncurses for this but may test a text based menu.
