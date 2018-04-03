@@ -104,5 +104,5 @@ void loadSelection(int s)
     //exit(0);
   //}
   //std::terminate();
-  open = FALSE;
+  //open = FALSE;
 }
