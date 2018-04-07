@@ -12,7 +12,7 @@ int numBombs = 0; //store how many bombs to create
 int bombsFound = 0; //store number of bombs found
 void playerTurn();
 void generateNumbers(); //Generate the numbers that tell the player where bombs are
-void placeNumbers(); //places the values around the bomb
+void placeNumbers(int x, int y); //places the values around the bomb
 
 int main()
 {
@@ -21,6 +21,7 @@ int main()
   printf("How many bombs would you like to add?\n");
   scanf("%d", &numBombs);
   generateBombs(numBombs);
+  generateNumbers();
   drawBoard();
   playerTurn();
   printf("END\n");
@@ -166,14 +167,28 @@ void generateNumbers()
     {
       if (values[y][z] == 10)
       {
-        placeNumbers();
+        placeNumbers(y, z);
       }
     }
   }
 
 }
 
-void placeNumbers()
+void placeNumbers(int y, int z)
 {
+  values[y-1][z-1] += 1;
+  values[y-1][z] += 1;
+  values[y-1][z+1] += 1;
+  if (values[y][z-1] != 10)
+  {
+    values[y][z-1] += 1;
+  }
 
+  if (values[y][z+1] != 10)
+  {
+    values[y][z+1] += 1;
+  }  
+  values[y+1][z-1] += 1;
+  values[y+1][z] += 1;
+  values[y+1][z+1] += 1;
 }
