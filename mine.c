@@ -37,7 +37,14 @@ void drawBoard()
     printf("+-+-+-+-+-+-+-+-+-+-+\n");
     for (int b = 0; b < 10; b++)
     {
-      printf("|%c", grid[a][b]);
+      if (values[a][b] == 10)
+      {
+        printf("|%c", grid[a][b]);
+      }
+      else
+      {
+        printf("|%i", values[a][b]);
+      }
     }
     printf("| %d\n", a);
   }
