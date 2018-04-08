@@ -13,6 +13,7 @@ int bombsFound = 0; //store number of bombs found
 void playerTurn();
 void generateNumbers(); //Generate the numbers that tell the player where bombs are
 void placeNumbers(int x, int y); //places the values around the bomb
+void uncoverSquares(int x, int y); //a function to uncover surronding squares from player selection
 
 int main()
 {
@@ -24,6 +25,7 @@ int main()
   generateNumbers();
   drawBoard();
   playerTurn();
+  drawBoard();
   printf("END\n");
 }
 
@@ -43,7 +45,8 @@ void drawBoard()
       }
       else
       {
-        printf("|%i", values[a][b]);
+        //printf("|%i", values[a][b]);
+        printf("|%c", grid[a][b]);
       }
     }
     printf("| %d\n", a);
@@ -86,7 +89,7 @@ void generateBombs(int number)
     if (values[x][y] == 0) //check if square currently has a bomb
     {
       values[x][y] = 10; //make value 10 to signify a bomb
-      grid[x][y] = 'B'; //remove for final version of game.
+      //grid[x][y] = 'B'; //remove for final version of game.
     }
     else
     {
@@ -110,7 +113,7 @@ void playerTurn()
   }
   else
   {
-    //work out what squares to remove
+    uncoverSquares(x,y);
   }
 }
 
@@ -183,9 +186,21 @@ void generateNumbers()
 
 void placeNumbers(int y, int z)
 {
-  values[y-1][z-1] += 1;
-  values[y-1][z] += 1;
-  values[y-1][z+1] += 1;
+  if (values[y-1][z-1] != 10)
+  {
+    values[y-1][z-1] += 1;
+  } 
+
+  if (values[y-1][z] != 10)
+  { 
+    values[y-1][z] += 1;
+  }
+  
+  if (values[y-1][z+1] != 10)
+  { 
+    values[y-1][z+1] += 1;
+  }  
+
   if (values[y][z-1] != 10)
   {
     values[y][z-1] += 1;
@@ -195,7 +210,38 @@ void placeNumbers(int y, int z)
   {
     values[y][z+1] += 1;
   }  
-  values[y+1][z-1] += 1;
+
+  if (values[y+1][z-1] != 10)
+  {
+    values[y+1][z-1] += 1;
+  }
+
+  if (values[y+1][z] != 10)
+  {
   values[y+1][z] += 1;
-  values[y+1][z+1] += 1;
+  }
+
+  if (values[y+1][z+1] != 10)
+  {  
+    values[y+1][z+1] += 1;
+  }
+}
+
+void uncoverSquares(int x, int y)
+{
+  grid[y][x] = '*';
+  //recursive so calls itself
+  //if square to right is empty, call itself
+  if (values[y+1][x] != 0)
+  {
+    grid[y+1][x] = values[y+1][x+1];
+  }
+  else
+  {
+    grid[y+1][x] = '*';
+    uncoverSquares(y+1, x);
+  }
+  //if square to left is empty call itself,
+  //if square above is empty call itself
+  //if square below is empty call itself
 }
