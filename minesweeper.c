@@ -2,8 +2,8 @@
 #include <stdlib.h>
 
 void drawBoard();  //draw the board
-char grid[10][10];
-int values[10][10];
+char grid[12][12];
+int values[12][12];
 char addToChar(char input); //Function to add 1 to a numner stored as a char
 void createBlanks(); //adds a blank character to all squares for when the board gets printed
 void fillZero(); //fill values with 0
@@ -14,7 +14,16 @@ void playerTurn();
 void generateNumbers(); //Generate the numbers that tell the player where bombs are
 void placeNumbers(int x, int y); //places the values around the bomb
 void uncoverSquares(int x, int y); //a function to uncover surronding squares from player selection
-
+int squareLocationx[100]; //store location of centre square
+int squareLocationy[100]; //store the y locatin of current square
+void pushArrayX(int value);
+int popArrayX();
+void pushArrayY(int value);
+int popArrayY();
+int checkAdjecent(int x, int y);
+int arrayXBottom = 0;
+int arrayYBottom = 0;
+ 
 int main()
 {
   createBlanks();
@@ -34,7 +43,7 @@ void drawBoard()
   //print out grid to screen
   printf("|0|1|2|3|4|5|6|7|8|9|X\n");
 
-  for (int a = 0; a < 10; a++)
+  for (int a = 1; a < 11; a++)
   {
     printf("+-+-+-+-+-+-+-+-+-+-+\n");
     for (int b = 0; b < 10; b++)
@@ -57,9 +66,9 @@ void drawBoard()
 void createBlanks()
 {
   //apply a blank character to all squares in the grid
-  for (int i = 0; i < 10; i++)
+  for (int i = 0; i < 12; i++)
   {
-    for (int j = 0; j < 10; j++)
+    for (int j = 0; j < 12; j++)
     {
       grid[i][j] = ' ';
     }
@@ -69,9 +78,9 @@ void createBlanks()
 void fillZero()
 {
   //apply value 0 to all squares
-  for (int i = 0; i < 10; i++)
+  for (int i = 0; i < 12; i++)
   {
-    for (int j = 0; j < 10; j++)
+    for (int j = 0; j < 12; j++)
     {
       values[i][j] = 0;
     }
@@ -86,7 +95,7 @@ void generateBombs(int number)
     x = rand() % 10;
     y = rand() % 10;
 
-    if (values[x][y] == 0) //check if square currently has a bomb
+    if (values[x][y] == 0 && x > 0 && x < 12 && y > 0 && y < 12) //check if square currently has a bomb and is inside the playing area
     {
       values[x][y] = 10; //make value 10 to signify a bomb
       //grid[x][y] = 'B'; //remove for final version of game.
@@ -171,11 +180,11 @@ void generateNumbers()
 {
   //scan for a bomb
   //add one to the value of the 8 boxes around the bomb
-  for (int y = 0; y < 10; y++)
+  for (int y = 0; y < 12; y++)
   {
-    for (int z = 0; z < 10; z++)
+    for (int z = 0; z < 12; z++)
     {
-      if (values[y][z] == 10)
+      if (values[y][z] == 12)
       {
         placeNumbers(y, z);
       }
@@ -229,22 +238,82 @@ void placeNumbers(int y, int z)
 
 void uncoverSquares(int x, int y)
 {
-  int squareLocationx[100]; //store location of centre square
-  int squareLocationy[100]; //store the y locatin of current square
-  int currentArrayPosition = 0;
-  
-  squareLocationx[currentArrayPosition] = x; //store location player imput as first square
-  squareLocationy[currentArrayPosition] = y;
+  squareLocationx[arrayXPosition] = x; //store location player imput as first square
+  squareLocationy[arrayYPosition] = y;
   
   
 }
 
-bool checkAdjecent(int x, int y) //function to check to see if the surrounding 8 squares are empty
+int checkAdjecent(int x, int y) //function to check to see if the surrounding 8 squares are empty
 {
   int bombsFound = 0;
 
-  if (x - 1 >= 0 && x - 1 <= 9)
+  if (values[x-1][y-1] == 10)
   {
-    
+    bombsFound += 1;
   }
+
+  if (values[x-1][y] == 10)
+  {
+    bombsFound += 1;
+  }
+
+  if (values[x-1][y+1] == 10)
+  {
+    bombsFound += 1;
+  }
+
+  if (values[x][y-1] == 10)
+  {
+    bombsFound += 1;
+  }
+
+  if (values[x][y+1] == 10)
+  {
+    bombsFound += 1;
+  }
+
+  if (values[x+1][y-1] == 10)
+  {
+    bombsFound += 1;
+  }
+
+  if (values[x+1][y] == 10)
+  {
+    bombsFound += 1;
+  }
+
+  if (values[x+1][y+1] == 10)
+  {
+    bombsFound += 1;
+  }
+
+  if (bombsFound > 0)
+  {
+    return 0;
+  }
+  else
+  {
+    return 1;
+  }
+}
+
+void pushArrayX(int value)
+{
+
+}
+
+int popArrayX()
+{
+
+}
+
+void pushArrayY(int value)
+{
+
+}
+
+int popArrayY()
+{
+
 }
