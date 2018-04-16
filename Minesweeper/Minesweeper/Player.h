@@ -11,5 +11,9 @@ public:
 	~Player();
 
 	void playerTurn(); //function that controls what happens when a player selects a square
+
+private:
+	int uncoverSquares(int x, int y);
+
 };
 
