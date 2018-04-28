@@ -30,8 +30,3 @@ void Player::playerTurn()
 		Player::uncoverSquares(x, y);
 	}
 }
-
-int Player::uncoverSquares(int x, int y)
-{
-
-}

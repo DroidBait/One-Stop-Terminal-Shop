@@ -19,6 +19,7 @@ public:
 
 private:
 	void createBlanks(); //fill the board that will be displayed to the user with blanks and put a 0 in all spaces for values
+	void uncoverSquares(int x, int y); //check adjecent squares, if incovered and not a bomb, uncover and add to queue
 
 };
 

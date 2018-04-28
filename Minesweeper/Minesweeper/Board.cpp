@@ -76,3 +76,48 @@ void Board::generateBombs(int number)
 		}
 	}
 }
+
+void Board::uncoverSquares(int x, int y)
+{
+	//check adjecent squares, if incovered and not a bomb, uncover and add to queue
+	addX.push_back(x);
+	addY.push_back(y);
+
+	if (values[x][y] == 10)
+	{
+		addX.pop_back();
+		addY.pop_back();
+		//bomb hit, game over
+	}
+	else
+	{
+		grid[x][y] = values[x][y]; //uncover square
+
+		addX.pop_back(); //remove current square from queue
+		addY.pop_back();
+
+		if (values[x - 1][y - 1] != 10 && grid[x-1][y-1] == ' ') //check square above and left if not a bomb and not uncovered
+		{
+			addX.push_back(x - 1); //add square to queue
+			addY.push_back(y - 1);
+
+			grid[x - 1][y - 1] = values[x - 1][y - 1];
+		}
+
+		if (values[x - 1][y] != 10 && grid[x - 1][y] == ' ') //check square above if not a bomb and not uncovered
+		{
+			addX.push_back(x - 1); //add square to queue
+			addY.push_back(y);
+
+			grid[x - 1][y] = values[x - 1][y];
+		}
+
+		if (values[x - 1][y + 1] != 10 && grid[x - 1][y + 1] == ' ') //check square above and right if not a bomb and not uncovered
+		{
+			addX.push_back(x - 1); //add square to queue
+			addY.push_back(y + 1);
+
+			grid[x - 1][y + 1] = values[x - 1][y + 1];
+		}
+	}
+}
